@@ -1,4 +1,4 @@
-package basic
+package main
 
 import (
 	"errors"
@@ -24,6 +24,16 @@ func main() {
 	}
 	fmt.Println("10 / 2 =", result)
 
+	// --- 3. defer ---
+	// defer 注册一个函数，在当前函数返回前执行
+	// 类比 JS 的 finally，但可以注册多次，按 LIFO 顺序执行
+	fmt.Println("--- defer demo ---")
+	defer fmt.Println("defer 1: 最后执行")
+	defer fmt.Println("defer 2: 倒数第二执行")
+	defer deferDemo() // 可以 defer 另一个函数
+
+	fmt.Println("--- function executing ---")
+
 	// 错误情况
 	result2, err := divide(10, 0)
 	if err != nil {
@@ -31,19 +41,10 @@ func main() {
 		return
 	}
 	fmt.Println("10 / 0 =", result2)
-
-	// --- 3. defer ---
-	// defer 注册一个函数，在当前函数返回前执行
-	// 类比 JS 的 finally，但可以注册多次，按 LIFO 顺序执行
-	fmt.Println("--- defer demo ---")
-	deferDemo()
 }
 
 func deferDemo() {
-	defer fmt.Println("defer 1: 最后执行")
-	defer fmt.Println("defer 2: 倒数第二执行")
-
-	fmt.Println("函数体执行中...")
+	defer fmt.Println("defer 3: 倒数第三执行")
 	// 实际用途：确保资源释放，类比 JS 的 finally
 	// 比如：defer file.Close()、defer db.Close()
 }
