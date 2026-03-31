@@ -1,22 +1,23 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type BankAccount struct {
 	Owner   string
 	Balance float64
 }
 
+func NewBankAccount(owner string, initialBalance float64) *BankAccount {
+	return &BankAccount{Owner: owner, Balance: initialBalance}
+}
+
 func (a *BankAccount) Deposit(amount float64) {
 	a.Balance += amount
 }
 
-func (a *BankAccount) Withdraw(amount float64) (err error) {
+func (a *BankAccount) Withdraw(amount float64) error {
 	if amount > a.Balance {
-		err = fmt.Errorf("insufficient balance")
-		return err
+		return fmt.Errorf("insufficient balance")
 	}
 	a.Balance -= amount
 	return nil
@@ -26,16 +27,10 @@ func (a *BankAccount) String() string {
 	return fmt.Sprintf("[%s] Balance: %.2f", a.Owner, a.Balance)
 }
 
-func NewBankAccount(owner string, initialBalance float64) *BankAccount {
-	return &BankAccount{
-		Owner:   owner,
-		Balance: initialBalance,
-	}
-}
+func exercise() {
+	fmt.Println("=== Exercise: BankAccount ===")
 
-func main() {
 	account := NewBankAccount("Alice", 1000)
-
 	account.Deposit(100)
 	if err := account.Withdraw(200); err != nil {
 		fmt.Printf("Error: %s\n", err)
@@ -43,6 +38,5 @@ func main() {
 	if err := account.Withdraw(2000); err != nil {
 		fmt.Printf("Error: %s\n", err)
 	}
-	str := account.String()
-	fmt.Print(str)
+	fmt.Println(account.String())
 }

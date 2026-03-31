@@ -7,7 +7,6 @@ func stats(nums ...int) (sum int, avg float64, err error) {
 		err = fmt.Errorf("no numbers provided")
 		return
 	}
-	// 你的实现
 	for _, n := range nums {
 		sum += n
 	}
@@ -15,8 +14,13 @@ func stats(nums ...int) (sum int, avg float64, err error) {
 	return
 }
 
-func main() {
+func exercise() {
+	fmt.Println("=== Exercise: stats ===")
+
 	nums := []int{1, 2, 3, 4, 5}
-	sum, avg, err := stats(nums...)
-	fmt.Printf("Sum: %d, Average: %.2f, Error: %v\n", sum, avg, err)
+	s, avg, err := stats(nums...)
+	fmt.Printf("Sum: %d, Average: %.2f, Error: %v\n", s, avg, err)
+
+	_, _, err = stats()
+	fmt.Println("empty stats error:", err)
 }
