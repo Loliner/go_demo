@@ -16,8 +16,8 @@
 - [x] 基础语法：变量、类型、slice（len/cap、共享内存、copy、append 扩容）
 - [x] 函数：多返回值、命名返回值、variadic 函数
 - [x] 结构体 struct
-- [ ] 指针
-- [ ] interface
+- [x] 指针
+- [x] interface
 - [ ] goroutine + channel
 - [ ] defer / panic / recover
 - [ ] error 处理模式
