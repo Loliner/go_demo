@@ -75,11 +75,25 @@ func demoChannel() {
 	ch := make(chan int)
 
 	go func() {
+		fmt.Printf("first message sending...\n")
 		ch <- 42 // 发送（会阻塞直到有人接收）
+		fmt.Printf("first message sent.\n")
+		fmt.Printf("second message sending...\n")
+		ch <- 43 // 发送第二个值（会阻塞直到有人接收）
+		fmt.Printf("second message sent.\n")
 	}()
 
+	fmt.Printf("first message receiving...\n")
 	val := <-ch // 接收（会阻塞直到有数据）
-	fmt.Printf("received: %d\n", val)
+	fmt.Printf("first message received: %d\n", val)
+	val = <-ch // 接收第二个值
+	fmt.Printf("second message received: %d\n", val)
+
+	time.Sleep(1 * time.Millisecond)
+
+	// 个人理解：
+	// 1. goroutine 和 main 会互相抢占 cpu，当 main 接收到信息使得两个线程都不阻塞时，并不能保证哪一个线程可以先获得执行
+	// 2. channel 只保证在「接收信息」和「发送信息」那一步是同步的，后续谁先执行并不确定
 }
 
 // ============================================================
@@ -89,6 +103,8 @@ func demoChannel() {
 
 func worker(id int, results chan<- string) {
 	// chan<- 表示只能发送（send-only channel），是类型约束
+	// 对应读channel则是 <-chan string（receive-only channel）
+	time.Sleep(10 * time.Millisecond) // 模拟工作
 	result := fmt.Sprintf("worker %d result", id)
 	results <- result
 }
@@ -97,7 +113,7 @@ func demoChannelResults() {
 	results := make(chan string, 3) // 有缓冲，不会阻塞
 
 	for i := 1; i <= 3; i++ {
-		go worker(i, results)
+		go worker(i, results) // 同时启动3个goroutine, 哪个先执行完不确定
 	}
 
 	// 收集 3 个结果
