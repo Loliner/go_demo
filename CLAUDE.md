@@ -18,7 +18,7 @@
 - [x] 结构体 struct
 - [x] 指针
 - [x] interface
-- [ ] goroutine + channel
+- [x] goroutine + channel
 - [ ] defer / panic / recover
 - [ ] error 处理模式
 - [ ] Go modules 与项目结构
