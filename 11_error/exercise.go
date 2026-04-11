@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"slices"
+	"strings"
+)
 
 // ============================================================
 // 练习：error 处理模式
@@ -30,10 +35,58 @@ import "fmt"
 //    - registerUser("")          → FieldError
 //    - registerUser("bad-email") → FieldError
 //    - registerUser("taken@example.com") → ErrDuplicateEmail
-//    - registerUser("new@example.com")   → 成功
+//    - registerUser("new@example.com")   → 成
 
 // TODO: 在这里写你的代码
+var ErrDuplicateEmail = errors.New("duplicate email")
+
+type FieldError struct {
+	Field   string
+	Message string
+}
+
+func (e *FieldError) Error() string {
+	return fmt.Sprintf("FieldError: Field(%s) is %s", e.Field, e.Message)
+}
+
+func validateEmail(email string) error {
+	if email == "" {
+		return &FieldError{Field: "email", Message: "required"}
+	}
+	if !strings.Contains(email, "@") {
+		return &FieldError{Field: "email", Message: "invalid format"}
+	}
+	return nil
+}
+
+func registerUser(email string) error {
+	err := validateEmail(email)
+	if err != nil {
+		return fmt.Errorf("registerUser: %w", err)
+	}
+	takenEmails := []string{"taken@example.com", "taken2@example.com"}
+	if slices.Contains(takenEmails, email) {
+		return fmt.Errorf("registerUser: %w", ErrDuplicateEmail)
+	}
+	fmt.Println("registered: ", email)
+	return nil
+}
+
+func errorCheck(err error) {
+	var validErr *FieldError
+	if errors.As(err, &validErr) {
+		fmt.Printf("FieldError Field(%s) is %s\n", validErr.Field, validErr.Message)
+	}
+	if errors.Is(err, ErrDuplicateEmail) {
+		fmt.Println("ErrDuplicateEmail")
+	}
+}
 
 func exercise() {
 	fmt.Println("=== Exercise: error 处理模式 ===")
+
+	errorCheck(registerUser(""))                  // FieldError
+	errorCheck(registerUser("bad-email"))         // FieldError
+	errorCheck(registerUser("taken@example.com")) // ErrDuplicateEmail
+	errorCheck(registerUser("new@example.com"))   // Success
 }
