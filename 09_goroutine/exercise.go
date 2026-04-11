@@ -52,8 +52,8 @@ func process(task *Task) *Result {
 }
 
 func runWorkers(tasks []Task, workerCount int) []Result {
-	taskCh := make(chan Task)
-	resultCh := make(chan Result)
+	taskCh := make(chan Task, len(tasks))
+	resultCh := make(chan Result, len(tasks))
 	results := []Result{}
 	var wg sync.WaitGroup
 
@@ -62,28 +62,34 @@ func runWorkers(tasks []Task, workerCount int) []Result {
 			for t := range taskCh {
 				result := process(&t)
 				resultCh <- *result
+				wg.Done()
 			}
 		}(i)
 	}
 	fmt.Println("all goroutine start")
 
-	go func() {
-		for r := range resultCh {
-			results = append(results, r)
-			wg.Done()
-		}
-	}()
+	// resultCh 无缓冲时，需要有一个单独的 goroutine 去获取数据，否则会让后续任务阻塞
+	// go func() {
+	// 	for r := range resultCh { // 阻塞并等待 resultCh 收到信息
+	// 		results = append(results, r)
+	// 		wg.Done()
+	// 	}
+	// }()
 
 	for _, task := range tasks {
 		wg.Add(1)
 		taskCh <- task
 	}
+
 	close(taskCh)
 	fmt.Println("all tasks sent, taskCh closed")
 	wg.Wait()
 	close(resultCh)
 	fmt.Println("all result received, resultCh closed")
 
+	for r := range resultCh {
+		results = append(results, r)
+	}
 	return results
 }
 
