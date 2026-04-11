@@ -23,7 +23,30 @@ import "fmt"
 //    - 打印 "program still running" 证明 recover 生效
 
 // TODO: 在这里写你的代码
+func safeRun(fn func()) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("panic: %v", r)
+		}
+	}()
+	fn()
+	return
+}
+
+func mustPositive(n int) int {
+	if n <= 0 {
+		panic("n must be positive")
+	}
+	return n
+}
 
 func exercise() {
 	fmt.Println("=== Exercise: defer / panic / recover ===")
+	if err := safeRun(func() { fmt.Println("result: ", mustPositive(5)) }); err != nil {
+		fmt.Printf("%s\n", err)
+	}
+	if err := safeRun(func() { fmt.Println("result: ", mustPositive(-1)) }); err != nil {
+		fmt.Printf("%s\n", err)
+	}
+	fmt.Println("program still running")
 }

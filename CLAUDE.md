@@ -19,7 +19,7 @@
 - [x] 指针
 - [x] interface
 - [x] goroutine + channel
-- [ ] defer / panic / recover
+- [x] defer / panic / recover
 - [ ] error 处理模式
 - [ ] Go modules 与项目结构
 - [ ] 标准库：net/http、encoding/json
