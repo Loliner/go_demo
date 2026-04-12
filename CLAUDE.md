@@ -20,7 +20,7 @@
 - [x] interface
 - [x] goroutine + channel
 - [x] defer / panic / recover
-- [ ] error 处理模式
+- [x] error 处理模式
 - [ ] Go modules 与项目结构
 - [ ] 标准库：net/http、encoding/json
 - [ ] 泛型（Go 1.18+）
