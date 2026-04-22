@@ -22,8 +22,8 @@
 - [x] defer / panic / recover
 - [x] error 处理模式
 - [x] Go modules 与项目结构
-- [ ] 标准库：net/http、encoding/json
-- [ ] 泛型（Go 1.18+）
+- [x] 标准库：net/http、encoding/json
+- [x] 泛型（Go 1.18+）
 - [ ] context
 - [ ] 反射与性能优化
 
