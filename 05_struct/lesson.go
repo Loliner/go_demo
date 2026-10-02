@@ -44,9 +44,9 @@ type Address struct {
 }
 
 type Employee struct {
-	User                  // 匿名嵌入，字段和方法自动提升
+	User       // 匿名嵌入，字段和方法自动提升
 	Department string
-	Address    Address    // 具名嵌入，需要用 .Address.City 访问
+	Address    Address // 具名嵌入，需要用 .Address.City 访问
 }
 
 // ============================================================
@@ -75,7 +75,8 @@ func lesson() {
 	fmt.Println("\n=== 方法 ===")
 	u3 := User{Name: "Charlie", Age: 25}
 	fmt.Println(u3.SetGreet()) // Hello, Modified
-	fmt.Println(u3.Greet())    // Hello, Charlie
+	// 实际变成 (&u3).Greet()
+	fmt.Println(u3.Greet()) // Hello, Charlie
 	u3.Birthday()
 	fmt.Println("Age after birthday:", u3.Age) // 26
 
@@ -96,3 +97,8 @@ func lesson() {
 	u4.Birthday()
 	fmt.Println("Age after birthday:", u4.Age) // 23
 }
+
+// 匿名字段寻址按照浅度优先，也就是谁最浅谁先
+// 值接收函数拿拷贝，指针接收函数拿原始值。
+// set 要指针接收，get 只需要值接收即可
+// map 元素不可寻址
