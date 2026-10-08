@@ -125,3 +125,5 @@ func lesson() {
 	fmt.Println("\n=== new() ===")
 	newDemo()
 }
+
+// nil 指针可以调方法，不能访问字段。
