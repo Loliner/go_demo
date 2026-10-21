@@ -1,0 +1,14 @@
+# 词典 / 密码本（体积大且敏感）
+pwd_generate/**/*.txt
+pwd_generate/password
+
+# 抓到的握手包（敏感）
+pwd_generate/pkg
+
+# 运行产物：进度状态 / 断点文件 / 破解出的明文密码（敏感）
+pwd_generate/.hashcrack
+pwd_generate/record.md
+pwd_generate/record.txt.bak
+
+# 系统垃圾
+.DS_Store
