@@ -49,7 +49,7 @@ func resolveConfig(root string, syncOnly bool) *config {
 		pkgDir:      filepath.Join(root, "pkg"),
 		passwordDir: filepath.Join(root, "password"),
 		workDir:     work,
-		stateFile:   filepath.Join(work, "state.json"),
+		stateFile:   filepath.Join(root, "state.json"),
 		recordFile:  filepath.Join(root, "record.md"),
 		syncOnly:    syncOnly,
 	}

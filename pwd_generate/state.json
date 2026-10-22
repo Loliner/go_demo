@@ -1,0 +1,90 @@
+{
+  "packages": {
+    "Alice_Main-01.22000": {
+      "cracked": true,
+      "password": "isabelle123",
+      "crackedWith": "triple-h.txt",
+      "wordlists": {
+        "triple-h.txt": "cracked"
+      }
+    },
+    "NETGEAR59-01.22000": {
+      "cracked": false,
+      "wordlists": {
+        "ASLM.txt": "exhausted",
+        "dictionary_private.dic": "exhausted",
+        "hashmob.net_2025.large.found": "exhausted",
+        "hashmob.net_2025.medium.found": "exhausted",
+        "hashmob.net_2025.small.found": "exhausted",
+        "hashmob.net_2025.user.found": "exhausted",
+        "ignis-10K.txt": "exhausted",
+        "linuxwz.txt": "exhausted",
+        "numbers6.txt": "exhausted",
+        "numbers7.txt": "exhausted",
+        "numbers8.txt": "exhausted",
+        "phone.txt": "exhausted",
+        "triple-h.txt": "exhausted"
+      }
+    },
+    "NETGEAR59-5G-01.22000": {
+      "cracked": false,
+      "wordlists": {}
+    },
+    "OPTUS_B02AEBM-01.22000": {
+      "cracked": false,
+      "wordlists": {
+        "triple-h.txt": "exhausted"
+      }
+    },
+    "Robert85Peng84-01.22000": {
+      "cracked": false,
+      "wordlists": {}
+    },
+    "Tenda_C21380-01.22000": {
+      "cracked": false,
+      "wordlists": {}
+    },
+    "Tenda_C21380_5G-01.22000": {
+      "cracked": false,
+      "wordlists": {}
+    },
+    "WIFI-Q2QXGZN-01.22000": {
+      "cracked": false,
+      "wordlists": {
+        "ASLM.txt": "exhausted",
+        "dictionary_private.dic": "exhausted",
+        "hashmob.net_2025.user.found": "exhausted",
+        "triple-h.txt": "exhausted"
+      }
+    },
+    "tp-link01-01.22000": {
+      "cracked": false,
+      "wordlists": {
+        "all-h.txt": "exhausted",
+        "dictionary_private.dic": "exhausted",
+        "triple-h.txt": "exhausted"
+      }
+    }
+  },
+  "knownWordlists": [
+    "ignis-10K.txt",
+    "numbers6.txt",
+    "hashmob.net_2025.small.found",
+    "numbers7.txt",
+    "hashmob.net_2025.medium.found",
+    "linuxwz.txt",
+    "ASLM.txt",
+    "hashmob.net_2025.large.found",
+    "numbers8.txt",
+    "phone.txt",
+    "hashmob.net_2025.user.found",
+    "dictionary_private.dic",
+    "triple-h.txt",
+    "all-h.txt"
+  ],
+  "review": [
+    "OPTUS_B02AEBM-01.22000：旧记录中 triple-h 标为 \"done?\"，是否真跑完不确定，暂按已跑完处理。",
+    "WIFI-Q2QXGZN-01.22000：旧记录提到 numbers6/7/8 跑过但无完成标记，且这些词典不在 password/（在 pwd_generate 根目录），未计入。",
+    "NETGEAR59-01.22000 / tp-link01-01.22000：旧记录的 numbers6/7/8 词典不在 password/ 内，未计入。"
+  ]
+}
