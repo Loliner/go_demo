@@ -36,11 +36,7 @@ func walkWordlists(base, cur string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	type fileInfo struct {
-		name string
-		size int64
-	}
-	var files []fileInfo
+	var files []string
 	var dirs []string
 	for _, e := range entries {
 		if e.IsDir() {
@@ -50,23 +46,14 @@ func walkWordlists(base, cur string) ([]string, error) {
 		if !wordlistExts[strings.ToLower(filepath.Ext(e.Name()))] {
 			continue
 		}
-		info, err := e.Info()
-		if err != nil {
-			continue
-		}
-		files = append(files, fileInfo{e.Name(), info.Size()})
+		files = append(files, e.Name())
 	}
-	sort.Slice(files, func(i, j int) bool {
-		if files[i].size != files[j].size {
-			return files[i].size < files[j].size
-		}
-		return files[i].name < files[j].name
-	})
+	sort.Strings(files)
 	sort.Strings(dirs)
 
 	var out []string
 	for _, f := range files {
-		rel, err := filepath.Rel(base, filepath.Join(cur, f.name))
+		rel, err := filepath.Rel(base, filepath.Join(cur, f))
 		if err != nil {
 			continue
 		}
